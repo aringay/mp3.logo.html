@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive MP3 Website</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #181818;
+            color: #ccc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #222;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff7b7b, #ffbf47, #50c878);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        header button:hover {
+            background: #666;
+        }
+
+        #signInModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #signInModal .form-container {
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            color: #ccc;
+            text-align: center;
+        }
+
+        #signInModal h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        #signInModal form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #signInModal input {
+            padding: 12px;
+            font-size: 1.1em;
+            border: 1px solid #444;
+            background: #333;
+            color: #ccc;
+            border-radius: 5px;
+        }
+
+        #signInModal input:focus {
+            border-color: #ff7b7b;
+            outline: none;
+        }
+
+        #signInModal button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        #signInModal button:hover {
+            background: #666;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .player-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .music-player, .playlist {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-player img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .playlist ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .playlist li {
+            padding: 12px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
+
+        .playlist li:hover {
+            background: #333;
+        }
+
+        footer {
+            text-align: center;
+            background: #222;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        footer .social-icons {
+            margin-top: 10px;
+        }
+
+        footer .social-icons a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        footer .social-icons a:hover {
+            color: #ff7b7b;
+        }
+
+        @media (max-width: 768px) {
+            .player-container {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                padding: 0 10px;
+            }
+
+            .music-player, .playlist {
+                max-width: 100%;
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MP3 </div>
+        <button id="signInBtn">Sign In</button>
+    </header>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal">
+        <div class="form-container">
+            <h2>Sign In</h2>
+            <form>
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+                <button type="button" id="backBtn">Back</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <div class="player-container">
+            <!-- Music Player -->
+            <div class="music-player">
+                <img src="/images/sb19.jpg" alt="Album Art">
+                <audio id="audioPlayer" controls>
+                    <source src="song1.mp3" type="audio/mp3">
+                    
+                </audio>
+            </div>
+
+            <!-- Playlist -->
+            <div class="playlist">
+                <h3>SB19</h3>
+                <ul>
+                    <li onclick="playSong('/music/ MAPA .mp3')">MAPA</li>
+                    <li onclick="playSong('/music/Tilaluha .mp3')">TILALUHA</li>
+                    <li onclick="playSong('/music/Ikako .mp3')">IKAKO</li>
+                    <li onclick="playSong('/music/Hanggang sa Huli.mp3')">HANGGANG SA HULI</li>
+                    <li onclick="playSong('/music/Alab .mp3')">ALAB</li>
+                    <li onclick="playSong('/music/Go Up.mp3')">GO UP</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MusicTrack</p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+            <a href="mailto:someone@example.com">Gmail</a>
+        </div>
+    </footer>
+
+    <script>
+        const signInBtn = document.getElementById("signInBtn");
+        const signInModal = document.getElementById("signInModal");
+        const backBtn = document.getElementById("backBtn");
+
+        signInBtn.addEventListener("click", () => {
+            signInModal.style.display = "flex";
+        });
+
+        backBtn.addEventListener("click", () => {
+            signInModal.style.display = "none";
+        });
+
+        function playSong(song) {
+            const audioPlayer = document.getElementById("audioPlayer");
+            audioPlayer.src = song;
+            audioPlayer.play();
+        }
+    </script>
+</body>
+</html>
